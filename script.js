@@ -25,7 +25,7 @@ const images = [
     text: "Marvel's Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.",
   },
 ];
-
+// recupero slider
 const slider = document.getElementById("slider");
 
 // creo un array che contanga solo le immagini
@@ -52,16 +52,20 @@ for (let i = 0; i < immagini.length; i++) {
 const items = document.getElementsByClassName("item");
 // definisco la mia varaiabile per contare
 let activeItem = 0;
-// assegno active al primo elemento del carosello
-items[0].classList.add("active");
+// // assegno active al primo elemento del carosello
+items[activeItem].classList.add("active");
 const next = document.querySelector(".next");
 next.addEventListener("click", function () {
   if (activeItem < items.length - 1) {
     items[activeItem].classList.remove("active");
     activeItem++;
-    items[activeItem].classList.add("active");
+  } else {
+    items[activeItem].classList.remove("active");
+    activeItem = 0;
   }
-  if (activeItem === items.length - 1) {
+  items[activeItem].classList.add("active");
+
+  if (activeItem === items.length) {
     next.classList.add("hidden");
   }
   if (activeItem < items.length - 1) {
@@ -75,23 +79,20 @@ next.addEventListener("click", function () {
 const previous = document.querySelector(".previous");
 previous.addEventListener("click", function () {
   // RIMUOVO ACTIVE
-  if (activeItem < items.length) {
+  if (activeItem > 0) {
     items[activeItem].classList.remove("active");
-    //ABBASSO L'INDICE DELL'ELEMENTO VISUALIZZATO
     activeItem--;
-    // AGGIUNGO ACTIVE ALL'ELEMENTO
-    items[activeItem].classList.add("active");
+  } else {
+    items[activeItem].classList.remove("active");
+    activeItem = items.length - 1;
   }
-  //   AGGIUNGO next AGLI ELEMNTI QUANDO MI MUOVO VERSO IL BASSO
-  if (activeItem < items.length - 1) {
-    next.classList.remove("hidden");
-  }
-  //   NASCONDO IL PULSANTE AL PRIMO ELEMENTO
-  if (activeItem === 0) {
-    previous.classList.add("hidden");
-  }
+  items[activeItem].classList.add("active");
 });
-
+//
+//
+//
+//
+//
 // funzioni
 function createMyElement(tagtype, classname) {
   const currentElement = document.createElement(tagtype);
